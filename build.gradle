@@ -50,10 +50,13 @@ configurations {
 repositories {
     mavenCentral()
     mavenLocal()
+    maven {
+        url = uri('https://maven.pkg.github.com/habolabu/CoreService')
+    }
 }
 
 dependencies {
-    implementation "edu.ou:CoreService:${coreServiceVersion}"
+    implementation "edu.ou:coreservice:${coreServiceVersion}"
     implementation "org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-validation:${springBootValidationVersion}"
     implementation "org.springframework.boot:spring-boot-starter-data-jpa"
