@@ -1,14 +1,16 @@
 buildscript {
     ext {
         coreServiceVersion = "1.0.0"
-        springBootVersion = '2.7.4'
+        springBootVersion = "2.7.4"
         springDependencyManagementVersion = "1.0.12.RELEASE"
         mySqlVersion = "8.0.30"
         jaxbApiVersion = "2.4.0-b180830.0359"
-        springBootValidationVersion = '2.7.4'
+        springBootValidationVersion = "2.7.4"
+        lombokVersion= "1.18.26"
+        lombokMapstructBindingVersion ="0.2.0"
         mapstructVersion = "1.5.2.Final"
         commonLang3Version = "3.12.0"
-        jacksonDatabindVersion = '2.13.4'
+        jacksonDatabindVersion = "2.13.4"
         unirestObjectMapperJacksonVersion = "3.13.11"
         commonFileUploadVersion = "1.4"
         cloudinaryHttp44Version = "1.33.0"
@@ -32,14 +34,15 @@ buildscript {
 }
 
 plugins {
-    id 'org.springframework.boot' version '2.7.4'
-    id 'io.spring.dependency-management' version '1.0.14.RELEASE'
-    id 'java'
+    id "org.springframework.boot" version "2.7.4"
+    id "io.spring.dependency-management" version "1.0.14.RELEASE"
+    id "java"
 }
 
-group = 'edu.com'
-version = '1.0.0'
-sourceCompatibility = '17'
+group = "edu.com"
+version = "1.0.0"
+sourceCompatibility = "17"
+archivesBaseName = "auth-command-service"
 
 configurations {
     compileOnly {
@@ -51,7 +54,11 @@ repositories {
     mavenCentral()
     mavenLocal()
     maven {
-        url = uri('https://maven.pkg.github.com/habolabu/CoreService')
+        url = uri("https://maven.pkg.github.com/habolabu/CoreService")
+        credentials {
+            username = "habolabu-package-token"
+            password = "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"
+        }
     }
 }
 
@@ -62,8 +69,10 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-data-jpa"
     runtimeOnly "mysql:mysql-connector-java:${mySqlVersion}"
     runtimeOnly "javax.xml.bind:jaxb-api:${jaxbApiVersion}"
-    annotationProcessor "org.projectlombok:lombok"
-    implementation "org.projectlombok:lombok"
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    implementation "org.projectlombok:lombok:${lombokVersion}"
+    implementation "org.projectlombok:lombok-mapstruct-binding:${lombokMapstructBindingVersion}"
     implementation "org.mapstruct:mapstruct:${mapstructVersion}"
     annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
     implementation "org.apache.commons:commons-lang3:${commonLang3Version}"
@@ -79,7 +88,7 @@ dependencies {
     implementation "org.springframework:spring-webflux:${springWebFluxVersion}"
 }
 
-tasks.named('test') {
+test {
     useJUnitPlatform()
 }
 
