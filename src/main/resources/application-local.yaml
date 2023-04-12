@@ -42,18 +42,14 @@ spring:
 
 # keycloak
 keycloak:
-  realm: ${KEYCLOAK_REALM:habolabu}
-  auth-server-url: ${KEYCLOAK_AUTH_SERVER_URL:http://localhost:8079/}
+  realm: ${KEYCLOAK_REALM:Habolabu}
+  auth-server-url: ${KEYCLOAK_AUTH_SERVER_URL:https://keycloak-habolabu-nguyentrungkien01.cloud.okteto.net/auth/}
   ssl-required: ${KEYCLOAK_SSL_REQUIRED:none}
-  resource: ${KEYCLOAK_RESOURCE:habolabu}
+  resource: ${KEYCLOAK_RESOURCE:Habolabu}
   bearer-only: ${KEYCLOAK_BEARER_ONLY:true}
   cors: ${KEYCLOAK_CORS:true}
   config:
-    username: ${KEYCLOAK_USERNAME:admin.habolabu}
+    username: ${KEYCLOAK_USERNAME:admin}
     password: ${KEYCLOAK_PASSWORD:12345678}
-    clientId: ${KEYCLOAK_CLIENT_ID:habolabu}
-    clientSecret: ${KEYCLOAK_CLIENT_SECRET:tApiDjsqRrm1gsgfyby97KgQmV9WfOu6}
-
-logging:
-  level:
-    root: debug
+    clientId: ${KEYCLOAK_CLIENT_ID:habolabu-back-end-service}
+    clientSecret: ${KEYCLOAK_CLIENT_SECRET:Lo4PmPoTWYMT6BmzF1f2ir6dlkJ9RiTq}
