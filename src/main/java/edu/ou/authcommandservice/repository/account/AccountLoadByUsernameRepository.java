@@ -14,7 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.util.Objects;
 
-@Repository("accountLoadByUsernameRepository")
+@Repository
 @RequiredArgsConstructor
 public class AccountLoadByUsernameRepository extends BaseRepository<String, AccountEntity> {
     private final ValidValidation validValidation;
