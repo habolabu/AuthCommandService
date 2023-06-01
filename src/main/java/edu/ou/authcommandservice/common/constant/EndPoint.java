@@ -13,6 +13,7 @@ public final class EndPoint {
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public static final class AccountSetting {
         public static final String BASE = "/account-setting";
+        public static final String MULTIPLE = "/multiple";
     }
 
     @NoArgsConstructor(access = AccessLevel.PRIVATE)

@@ -1,7 +1,7 @@
-package edu.ou.authcommandservice.repository.account;
+package edu.ou.authcommandservice.repository.permission;
 
 import edu.ou.authcommandservice.common.constant.CodeStatus;
-import edu.ou.authcommandservice.data.entity.AccountEntity;
+import edu.ou.authcommandservice.data.entity.PermissionEntity;
 import edu.ou.coreservice.common.constant.Message;
 import edu.ou.coreservice.common.exception.BusinessException;
 import edu.ou.coreservice.common.validate.ValidValidation;
@@ -12,28 +12,29 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import java.util.List;
 import java.util.Objects;
 
 @Repository
 @RequiredArgsConstructor
-public class AccountFindByUserIdRepository extends BaseRepository<Integer, AccountEntity> {
+public class PermissionFindByParentIdRepository extends BaseRepository<Integer, List<PermissionEntity>> {
     private final ValidValidation validValidation;
     private final EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
 
     /**
-     * Validate userId
+     * Validate permission id
      *
-     * @param userId userId
+     * @param permissionId permission id
      * @author Nguyen Trung Kien - OU
      */
     @Override
-    protected void preExecute(Integer userId) {
-        if (validValidation.isInValid(userId)) {
+    protected void preExecute(Integer permissionId) {
+        if (validValidation.isInValid(permissionId)) {
             throw new BusinessException(
                     CodeStatus.INVALID_INPUT,
                     Message.Error.INVALID_INPUT,
-                    "user identity"
+                    "permission identity"
             );
         }
 
@@ -41,34 +42,34 @@ public class AccountFindByUserIdRepository extends BaseRepository<Integer, Accou
     }
 
     /**
-     * Find account by userId with deleted
+     * Find permissionS by permission id with deleted
      *
-     * @param userId userId
-     * @return account
+     * @param parentId permission id
+     * @return permission
      * @author Nguyen Trung Kien - OU
      */
     @Override
-    protected AccountEntity doExecute(Integer userId) {
-        final String hqlQuery = "FROM AccountEntity A WHERE A.userId = :userId";
+    protected List<PermissionEntity> doExecute(Integer parentId) {
+        final String hqlQuery = "FROM PermissionEntity P WHERE P.parentId = :parentId AND P.type = 'permission'" +
+                " ORDER BY P.id";
 
         try {
-            return (AccountEntity)
-                    entityManager
+            return entityManager
                             .unwrap(Session.class)
                             .createQuery(hqlQuery)
                             .setParameter(
-                                    "userId",
-                                    userId
+                                    "parentId",
+                                    parentId
                             )
-                            .getSingleResult();
+                            .getResultList();
 
         } catch (Exception e) {
             throw new BusinessException(
                     CodeStatus.NOT_FOUND,
                     Message.Error.NOT_FOUND,
-                    "account",
-                    "user identity",
-                    userId.toString()
+                    "permission",
+                    "permission identity",
+                    parentId.toString()
             );
 
         }

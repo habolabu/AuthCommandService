@@ -1,7 +1,7 @@
-package edu.ou.authcommandservice.repository.account;
+package edu.ou.authcommandservice.repository.permission;
 
 import edu.ou.authcommandservice.common.constant.CodeStatus;
-import edu.ou.authcommandservice.data.entity.AccountEntity;
+import edu.ou.authcommandservice.data.entity.PermissionEntity;
 import edu.ou.coreservice.common.constant.Message;
 import edu.ou.coreservice.common.exception.BusinessException;
 import edu.ou.coreservice.common.validate.ValidValidation;
@@ -16,24 +16,24 @@ import java.util.Objects;
 
 @Repository
 @RequiredArgsConstructor
-public class AccountFindByUserIdRepository extends BaseRepository<Integer, AccountEntity> {
+public class PermissionFindByIdRepository extends BaseRepository<Integer, PermissionEntity> {
     private final ValidValidation validValidation;
     private final EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
 
     /**
-     * Validate userId
+     * Validate permission id
      *
-     * @param userId userId
+     * @param permissionId permission id
      * @author Nguyen Trung Kien - OU
      */
     @Override
-    protected void preExecute(Integer userId) {
-        if (validValidation.isInValid(userId)) {
+    protected void preExecute(Integer permissionId) {
+        if (validValidation.isInValid(permissionId)) {
             throw new BusinessException(
                     CodeStatus.INVALID_INPUT,
                     Message.Error.INVALID_INPUT,
-                    "user identity"
+                    "permission identity"
             );
         }
 
@@ -41,24 +41,24 @@ public class AccountFindByUserIdRepository extends BaseRepository<Integer, Accou
     }
 
     /**
-     * Find account by userId with deleted
+     * Find permission by permission id with deleted
      *
-     * @param userId userId
-     * @return account
+     * @param permissionId permission id
+     * @return permission
      * @author Nguyen Trung Kien - OU
      */
     @Override
-    protected AccountEntity doExecute(Integer userId) {
-        final String hqlQuery = "FROM AccountEntity A WHERE A.userId = :userId";
+    protected PermissionEntity doExecute(Integer permissionId) {
+        final String hqlQuery = "FROM PermissionEntity P WHERE P.id = :permissionId";
 
         try {
-            return (AccountEntity)
+            return (PermissionEntity)
                     entityManager
                             .unwrap(Session.class)
                             .createQuery(hqlQuery)
                             .setParameter(
-                                    "userId",
-                                    userId
+                                    "permissionId",
+                                    permissionId
                             )
                             .getSingleResult();
 
@@ -66,9 +66,9 @@ public class AccountFindByUserIdRepository extends BaseRepository<Integer, Accou
             throw new BusinessException(
                     CodeStatus.NOT_FOUND,
                     Message.Error.NOT_FOUND,
-                    "account",
-                    "user identity",
-                    userId.toString()
+                    "permission",
+                    "permission identity",
+                    permissionId.toString()
             );
 
         }

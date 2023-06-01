@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Component("accountAddListener")
+@Component
 @RequiredArgsConstructor
 public class AccountAddListener implements IBaseListener<Object, Object> {
     private final IBaseRepository<AccountEntity, Integer> accountAddRepository;

@@ -15,7 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.util.Objects;
 
-@Repository("passwordAddRepository")
+@Repository
 @RequiredArgsConstructor
 public class PasswordAddRepository extends BaseRepository<PasswordEntity, Integer> {
     private final ValidValidation validValidation;

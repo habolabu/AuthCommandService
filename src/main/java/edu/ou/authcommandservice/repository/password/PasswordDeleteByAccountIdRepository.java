@@ -14,7 +14,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import java.util.Objects;
 
-@Repository("passwordDeleteByAccountIdRepository")
+@Repository
 @RequiredArgsConstructor
 public class PasswordDeleteByAccountIdRepository extends BaseRepository<Integer, Integer> {
     private final ValidValidation validValidation;
